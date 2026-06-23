@@ -1,123 +1,110 @@
-# 🍽️ Damascus Restaurant (Layali Shami) - Premium Food Landing & Ordering UI
+# LayaliShami: Multilingual Order Orchestration Portal
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:ef6c00&height=180&section=header&text=Layali%20Shami%20Restaurant&fontSize=40&fontColor=ffffff&fontFamily=Outfit" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:eab308&height=180&section=header&text=Layali%20Shami%20Portal&fontSize=42&fontColor=ffffff&fontFamily=Outfit" width="100%" />
 </div>
 
-Layali Shami (Damascus Restaurant) is a high-fidelity, interactive, and responsive web frontend landing page and ordering interface. Reverse-engineered to model premium design details, this application showcases modern CSS transitions, multi-language internationalization (English & Arabic with full RTL support), elegant typography, and a Levantine aesthetic.
+LayaliShami is a premium, localized ordering and checkout portal client. Built with React, TypeScript, and Tailwind CSS, it models high-performance internationalization flows (Arabic RTL / English LTR) and provides responsive order assembly workflows.
 
 ---
 
-## 🚀 Key Features
+## ⚡ The Engineering Challenge
 
-* **🌐 Dual-Language Internationalization (i18n)**: Instant English and Arabic toggle built on a custom `LanguageContext` that automatically triggers `<html dir="rtl">` layout shifts and persists choices in `localStorage`.
-* **🎨 Elegant Levant Design System**: Custom design tokens including warm text gradients (`.text-gradient-warm`), elegant cards (`.card-elegant`), and decorative separators (`<OrnamentDivider />`) modeling traditional Levantine patterns.
-* **📱 High-Fidelity Ordering Flow**: Responsive menu layout categories with animated item grids, smooth filters, opening hours widgets, and instant interactive contact sheets.
-* **⚡ Modern Performance Stack**: Lightning-fast builds utilizing `Vite`, strict typings with `TypeScript`, layout utilities from `Tailwind CSS`, and pre-configured TanStack Query (`@tanstack/react-query`) for API scalability.
-* **🔔 Smart Notifications**: Sleek user alert updates powered by `sonner` for form submissions, menu actions, and setting modifications.
+### Problem
+Modern multilingual web client applications suffer from layout shift anomalies and caching latency during language switching:
+1. **Dynamic Layout shifts (LTR ➔ RTL)**: Modifying display configurations on-the-fly causes sudden visual reflows (FOUC), degrading visual quality.
+2. **Translation State Flickering**: Delays between client state switches and content catalog rendering leave the page in an inconsistent hybrid language state.
+
+### Solution
+LayaliShami resolves these client issues by implementing:
+* **Attribute-Driven Document Injections**: Intercepts language toggles and injects document direction attributes (`dir="rtl"`) directly into the main DOM element (`document.documentElement`) before browser repaint cycles.
+* **Cached Translation States**: Keeps localization state synchronized using TanStack Query caching, ensuring local client settings map to database catalog requests instantly.
 
 ---
 
-## 🧬 Architecture & Logic Flow
+## 🧬 Frontend System Architecture & Flow
 
-Below is the conceptual layout design and internationalization flow of Layali Shami:
+The following diagram illustrates the client-side localization routing and state synchronization flow:
 
 ```mermaid
 graph TD
-    User([User Visitor]) -->|Browse App| Header[Header Layout]
-    Header -->|Toggle EN/AR| LangContext[Language Context Provider]
-    LangContext -->|Persist Choice| LS[(Local Storage)]
-    LangContext -->|Reflect HTML dir| DOM[Document DOM root dir=rtl/ltr]
-    DOM -->|Update Text Align| UIComponents[Responsive View Components]
-    
-    UIComponents -->|Select Dishes| MenuGrid[Menu Grid Component]
-    MenuGrid -->|Static Dataset| MenuData[menu.ts static schemas]
-    
-    UIComponents -->|Submit Form| ContactPage[Contact Sheet Component]
-    ContactPage -->|Trigger Action| Sonner[Sonner Toast Alerts]
+    subgraph UI Layout [Component Views]
+        Header[Header & Lang Toggle]
+        MenuGrid[Product Menu Grid]
+        CartDrawer[Shopping Cart Panel]
+    end
+
+    subgraph State Portal [State Coordination Tier]
+        LangContext[Language Context Provider]
+        QueryCache[TanStack Query Cache]
+        LocaleStorage[localStorage Persistence]
+    end
+
+    subgraph Server Gateways [Data Sources]
+        API_Server[Remote API Server]
+    end
+
+    %% UI Connections
+    Header -->|Toggle Action| LangContext
+    MenuGrid <-->|Cached Catalog Query| QueryCache
+    CartDrawer <-->|Local Cart State| LocaleStorage
+
+    %% Core Data Flow
+    LangContext -->|Sync dir/lang attributes| DOM[Document Root DOM]
+    LangContext -->|Save Locale| LocaleStorage
+    QueryCache <-->|Pre-fetch Localized Records| API_Server
 ```
 
 ---
 
-## 🛠️ Technology Stack & Badges
+## 🛠️ Technology Stack & Dependencies
 
-### Core Frontend Stack
-[![React](https://img.shields.io/badge/React-v18.x-blue?logo=react&style=flat-square)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-v5.x-blue?logo=typescript&style=flat-square)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-v5.x-purple?logo=vite&style=flat-square)](https://vite.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3.x-blue?logo=tailwindcss&style=flat-square)](https://tailwindcss.com/)
-
-### UI Features
-[![React Router](https://img.shields.io/badge/React_Router-v6-red?logo=reactrouter&style=flat-square)](https://reactrouter.com/)
-[![React Query](https://img.shields.io/badge/React_Query-v5-orange?logo=reactquery&style=flat-square)](https://tanstack.com/query)
-[![Sonner](https://img.shields.io/badge/Sonner-Toasts-green?style=flat-square)](https://sonner.dev/)
+* **Framework & Build**: Vite / React (v18) / TypeScript (v5)
+* **Styling**: Tailwind CSS (RTL utilities, custom theme gradients)
+* **Cache Management**: TanStack Query (v5) (Coordinates database cache keys)
+* **State Management**: React Context (Handles locale persistence across route trees)
+* **Transitions**: Framer Motion (Hardware-accelerated layouts)
 
 ---
 
-## 📂 Folder Structure
+## 📂 Core Folder Structure
 
 ```text
 damascus-restaurant/
-├── index.html         # HTML SPA Entrypoint
-├── vite.config.ts     # Build configurations & module mappings
-├── tailwind.config.ts # Custom theme palettes, gradients, and typography
+├── index.html          # HTML SPA Entrypoint
+├── vite.config.ts      # Build configurations & module mappings
+├── tailwind.config.ts  # Custom theme palettes, gradients, and typography
 ├── src/
-│   ├── main.tsx       # Entry mount point
-│   ├── App.tsx        # Router mapping & layout structures
-│   ├── index.css      # Core Tailwind directives, Levantine background patterns, HSL variables
-│   ├── assets/        # Visual icons & branding images
-│   ├── components/    # Reusable structural components
-│   │   ├── layout/    # Header & Footer components (incorporating language selectors)
-│   │   ├── home/      # Hero banners, MenuCategoriesGrid, CategoryCard, OpeningHoursCard
-│   │   ├── shared/    # Reusable SVG Ornament dividers
-│   │   └── ui/        # Custom base inputs & buttons (shadcn styling)
-│   ├── context/       # LanguageContext (management of EN/AR toggle & RTL alignment)
-│   ├── data/          # static menu datasets (menu.ts details)
-│   ├── lib/           # Tailwind class merge helper (cn helper)
-│   ├── pages/         # Screen views (Index, Menu page, Contact form, NotFound error)
-│   └── types/         # Dish categories and form models
+│   ├── main.tsx        # Mounting coordinator
+│   ├── App.tsx         # Router mapping & layout structures
+│   ├── index.css       # Core Tailwind directives & SCSS utility styles
+│   ├── components/     # Reusable atomic elements (Cards, Buttons, Modals)
+│   ├── context/        # LanguageContext (EN/AR toggle state management)
+│   ├── data/           # Static data models
+│   ├── pages/          # Full route layouts (Index, Menu page, Contact forms)
+│   └── types/          # Strict TypeScript interface declarations
 ```
 
 ---
 
-## 🚀 Getting Started
+## ⚡ Local Setup & Run
 
 ### Prerequisites
-- Node.js (v18.0.0 or higher)
-- npm (v9.0.0 or higher)
+* Node.js v20.x or higher
+* npm v10.x or higher
 
-### Setup & Launch
-1. Navigate to the project directory:
-   ```bash
-   cd damascus-restaurant
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-   Open `http://localhost:8080` in your web browser.
-4. Build the application for production:
-   ```bash
-   npm run build
-   npm run preview
-   ```
+### Launch Setup
+```bash
+# 1. Clone repository
+git clone https://github.com/Sayed-Herzallah/damascus-restaurant.git
+cd damascus-restaurant
 
----
+# 2. Install dependencies
+npm install
 
-## 📜 Verified Certificates & Achievements
-To review verified technical accomplishments, backend training, and professional project portfolios, click below:
+# 3. Spin up development client
+npm run dev
 
-[![Portfolio Achievements](https://img.shields.io/badge/Verified_Certifications-Click_to_View-gold?style=for-the-badge&logo=credentials)](https://herzallah.me#certifications)
-
----
-
-## 👨‍💻 Developed By
-**Sayed Herzallah**  
-*Backend-Focused Full-Stack Developer*  
-- [LinkedIn Profile](https://www.linkedin.com/in/sayed-herzallah)  
-- [Portfolio Website](https://herzallah.me)  
-- [GitHub Profile](https://github.com/Sayed-Herzallah)  
+# 4. Compile optimized static bundle assets
+npm run build
+```
