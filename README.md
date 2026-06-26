@@ -5,7 +5,7 @@
 </div>
 
 <div align="center">
-  ![React](https://img.shields.io/badge/React-2023-blue?logo=react&style=for-the-badge) ![TanStack Query](https://img.shields.io/badge/TanStack%20Query-State-red?logo=reactquery&style=for-the-badge) ![I18n](https://img.shields.io/badge/I18n-Bilingual-blue?logo=googletranslate&style=for-the-badge) ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+  <img src="https://img.shields.io/badge/React-2023-blue?logo=react&style=for-the-badge" alt="React" /> <img src="https://img.shields.io/badge/TanStack%20Query-State-red?logo=reactquery&style=for-the-badge" alt="TanStack Query" /> <img src="https://img.shields.io/badge/I18n-Bilingual-blue?logo=googletranslate&style=for-the-badge" alt="I18n" /> <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
 </div>
 
 واجهة **مطعم بوابات الشام** هي منصة تفاعلية سريعة تتيح للمستخدمين تصفح قائمة الوجبات السورية وحجز الطلبات بلغات متعددة (عربي/إنجليزي) مع دعم متكامل ومباشر لتنسيق RTL العربي ومزامنة حالة سلة المشتريات.
