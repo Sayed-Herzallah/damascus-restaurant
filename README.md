@@ -1,110 +1,85 @@
-# LayaliShami: Multilingual Order Orchestration Portal
+# ðŸ’» Damascus Restaurant
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:eab308&height=180&section=header&text=Layali%20Shami%20Portal&fontSize=42&fontColor=ffffff&fontFamily=Outfit" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:0f172a&height=160&section=header&text=Damascus%20Restaurant&fontSize=42&fontColor=38bdf8&fontFamily=Outfit" width="100%" />
 </div>
 
-LayaliShami is a premium, localized ordering and checkout portal client. Built with React, TypeScript, and Tailwind CSS, it models high-performance internationalization flows (Arabic RTL / English LTR) and provides responsive order assembly workflows.
+<div align="center">
+  ![HTML5](https://img.shields.io/badge/HTML5-Structure-orange?logo=html5&style=for-the-badge) ![CSS3](https://img.shields.io/badge/CSS3-Design-blue?logo=css3&style=for-the-badge) ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript&style=for-the-badge) ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+</div>
 
 ---
 
-## ⚡ The Engineering Challenge
+## ðŸ“Œ Project Overview (Description)
+A premium restaurant landing and ordering UI featuring instant English/Arabic translation with full RTL layout persistence and TanStack Query state sync.
 
-### Problem
-Modern multilingual web client applications suffer from layout shift anomalies and caching latency during language switching:
-1. **Dynamic Layout shifts (LTR ➔ RTL)**: Modifying display configurations on-the-fly causes sudden visual reflows (FOUC), degrading visual quality.
-2. **Translation State Flickering**: Delays between client state switches and content catalog rendering leave the page in an inconsistent hybrid language state.
-
-### Solution
-LayaliShami resolves these client issues by implementing:
-* **Attribute-Driven Document Injections**: Intercepts language toggles and injects document direction attributes (`dir="rtl"`) directly into the main DOM element (`document.documentElement`) before browser repaint cycles.
-* **Cached Translation States**: Keeps localization state synchronized using TanStack Query caching, ensuring local client settings map to database catalog requests instantly.
+This codebase represents professional software development practices, clean module organization, and efficient code architectures tailored for high responsiveness and scalability.
 
 ---
 
-## 🧬 Frontend System Architecture & Flow
+## âš¡ The Engineering Challenge
 
-The following diagram illustrates the client-side localization routing and state synchronization flow:
+### ðŸ”´ Problem
+Developers building web solutions face difficulties handling state synchronization, styling inconsistencies, and complex configurations that clutter logic and trigger UI slowdowns or connection lifecycle failures.
 
-```mermaid
-graph TD
-    subgraph UI Layout [Component Views]
-        Header[Header & Lang Toggle]
-        MenuGrid[Product Menu Grid]
-        CartDrawer[Shopping Cart Panel]
-    end
-
-    subgraph State Portal [State Coordination Tier]
-        LangContext[Language Context Provider]
-        QueryCache[TanStack Query Cache]
-        LocaleStorage[localStorage Persistence]
-    end
-
-    subgraph Server Gateways [Data Sources]
-        API_Server[Remote API Server]
-    end
-
-    %% UI Connections
-    Header -->|Toggle Action| LangContext
-    MenuGrid <-->|Cached Catalog Query| QueryCache
-    CartDrawer <-->|Local Cart State| LocaleStorage
-
-    %% Core Data Flow
-    LangContext -->|Sync dir/lang attributes| DOM[Document Root DOM]
-    LangContext -->|Save Locale| LocaleStorage
-    QueryCache <-->|Pre-fetch Localized Records| API_Server
-```
+### ðŸŸ¢ Solution
+This project implements:
+* **Separation of Concerns**: Structured module layouts separating design assets from operational logic.
+* **Optimized Rendering**: Efficient script logic and CSS layout variables to maintain lightweight UI paint times.
+* **Structured Coding Standards**: Written using clean semantic patterns ensuring readable code maintainability.
 
 ---
 
-## 🛠️ Technology Stack & Dependencies
-
-* **Framework & Build**: Vite / React (v18) / TypeScript (v5)
-* **Styling**: Tailwind CSS (RTL utilities, custom theme gradients)
-* **Cache Management**: TanStack Query (v5) (Coordinates database cache keys)
-* **State Management**: React Context (Handles locale persistence across route trees)
-* **Transitions**: Framer Motion (Hardware-accelerated layouts)
-
----
-
-## 📂 Core Folder Structure
-
-```text
+## ðŸ§¬ System Architecture
+The internal layout structures are separated logically:
+`	ext
 damascus-restaurant/
-├── index.html          # HTML SPA Entrypoint
-├── vite.config.ts      # Build configurations & module mappings
-├── tailwind.config.ts  # Custom theme palettes, gradients, and typography
-├── src/
-│   ├── main.tsx        # Mounting coordinator
-│   ├── App.tsx         # Router mapping & layout structures
-│   ├── index.css       # Core Tailwind directives & SCSS utility styles
-│   ├── components/     # Reusable atomic elements (Cards, Buttons, Modals)
-│   ├── context/        # LanguageContext (EN/AR toggle state management)
-│   ├── data/           # Static data models
-│   ├── pages/          # Full route layouts (Index, Menu page, Contact forms)
-│   └── types/          # Strict TypeScript interface declarations
-```
+â”œâ”€â”€ css/ or styles/      # Styling engines and layouts
+â”œâ”€â”€ js/ or src/          # Source scripts and business logic
+â”œâ”€â”€ index.html or app.js # Operational entry point
+â””â”€â”€ README.md            # System documentation
+`
 
 ---
 
-## ⚡ Local Setup & Run
+## ðŸ› ï¸ Technology Stack
 
-### Prerequisites
-* Node.js v20.x or higher
-* npm v10.x or higher
+| Technology | Purpose |
+| :--- | :--- |
+| HTML5 | Semantic structure layout |
+| CSS3 | Layout styling and animations |
+| JavaScript | DOM interactivity logic |
 
-### Launch Setup
-```bash
-# 1. Clone repository
-git clone https://github.com/Sayed-Herzallah/damascus-restaurant.git
-cd damascus-restaurant
+---
 
-# 2. Install dependencies
-npm install
+## ðŸš€ Local Developer Setup & Run
 
-# 3. Spin up development client
-npm run dev
+### ðŸ“‹ Prerequisites
+* Modern web browser / Node.js runtime (depending on project stack)
 
-# 4. Compile optimized static bundle assets
-npm run build
-```
+### âš™ï¸ Quick Start Steps
+`ash
+    git clone https://github.com/Sayed-Herzallah/damascus-restaurant.git
+    cd damascus-restaurant
+    # Open index.html in any modern browser, or run local server:
+    python -m http.server 8080
+`
+
+
+
+---
+
+## ðŸ”® Future Improvements
+* [ ] Integrate automated unit testing.
+* [ ] Add dynamic dark/light theme switcher.
+* [ ] Improve responsiveness on extra-small mobile screen viewports.
+
+---
+
+## ðŸ‘¥ Contributors
+* **Sayed Herzallah** - Lead Developer & Systems Architect
+
+---
+
+## ðŸ“„ License
+Licensed under the **MIT License**.
