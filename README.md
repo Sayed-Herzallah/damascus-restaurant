@@ -1,81 +1,74 @@
-# 💻 Damascus Restaurant
+# Damascus Restaurant Hub: Bilingual Order System & RTL Sync Layout
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:0f172a&height=160&section=header&text=Damascus%20Restaurant&fontSize=42&fontColor=38bdf8&fontFamily=Outfit" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:ea580c&height=160&section=header&text=Damascus%20Restaurant&fontSize=42&fontColor=ffffff&fontFamily=Outfit" width="100%" />
 </div>
 
 <div align="center">
-  ![HTML5](https://img.shields.io/badge/HTML5-Structure-orange?logo=html5&style=for-the-badge) ![CSS3](https://img.shields.io/badge/CSS3-Design-blue?logo=css3&style=for-the-badge) ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?logo=javascript&style=for-the-badge) ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+  ![React](https://img.shields.io/badge/React-2023-blue?logo=react&style=for-the-badge) ![TanStack Query](https://img.shields.io/badge/TanStack%20Query-State-red?logo=reactquery&style=for-the-badge) ![I18n](https://img.shields.io/badge/I18n-Bilingual-blue?logo=googletranslate&style=for-the-badge) ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 </div>
 
----
+واجهة **مطعم بوابات الشام** هي منصة تفاعلية سريعة تتيح للمستخدمين تصفح قائمة الوجبات السورية وحجز الطلبات بلغات متعددة (عربي/إنجليزي) مع دعم متكامل ومباشر لتنسيق RTL العربي ومزامنة حالة سلة المشتريات.
 
-## 📌 Project Overview (Description)
-A premium restaurant landing and ordering UI featuring instant English/Arabic translation with full RTL layout persistence and TanStack Query state sync.
-
-This codebase represents professional software development practices, clean module organization, and efficient code architectures tailored for high responsiveness and scalability.
+This repository holds the React frontend storefront and ordering client for the **Damascus Restaurant Portal**. It features state-of-the-art multilingual layout transitions and full RTL rendering persistence.
 
 ---
 
-## ⚡ The Engineering Challenge
+## 🧬 Translation & Ordering State Flow
 
-### 🔴 Problem
-Developers building web solutions face difficulties handling state synchronization, styling inconsistencies, and complex configurations that clutter logic and trigger UI slowdowns or connection lifecycle failures.
+The application coordinates translation keys and syncs menu items caching:
 
-### 🟢 Solution
-This project implements:
-* **Separation of Concerns**: Structured module layouts separating design assets from operational logic.
-* **Optimized Rendering**: Efficient script logic and CSS layout variables to maintain lightweight UI paint times.
-* **Structured Coding Standards**: Written using clean semantic patterns ensuring readable code maintainability.
+```mermaid
+graph TD
+    User[Storefront Visitor] -->|Toggle Language switch| i18n[i18next translation manager]
+    i18n -->|Toggle HTML dir attribute 'rtl'/'ltr'| Layout[RTL CSS layout grid adjustment]
+    User -->|Add dish to cart| Cart[Local React Context State]
+    Cart -->|Trigger order checkout| TanStack[TanStack Query HTTP POST]
+    TanStack -->|Success| Reset[Empty Cart Context & show invoice status]
+```
 
 ---
 
-## 🧬 System Architecture
-The internal layout structures are separated logically:
+## 🧬 Key Frontend Features
+
+1.  **RTL/LTR Layout Sync**: Dynamic HTML direction wrapper mapping CSS Grid and typography styles.
+2.  **TanStack Query Cache**: Fast item query cache prevents server fetching loops when navigating menu sections.
+3.  **Interactive Booking Wizard**: Simple interactive checkout wizard managing guest forms and food selections.
+
+---
+
+## 🛠️ Technology Stack & Styling Assets
+
+*   **Framework**: **React 18** + **Vite** for high performance.
+*   **State Management**: **TanStack Query** (React Query) + local Context API.
+*   **Localization**: **i18next** translation package.
+*   **Design**: HSL customized design systems supporting responsive layouts.
+
+---
+
+## 📂 Repository Module Layout
+
 ```text
 damascus-restaurant/
-├── css/ or styles/      # Styling engines and layouts
-├── js/ or src/          # Source scripts and business logic
-├── index.html or app.js # Operational entry point
+├── src/
+│   ├── components/      # Menu cards, Cart drawers, Order modals
+│   ├── locales/         # i18n English & Arabic translation sheets
+│   ├── context/         # React Cart Context state handlers
+│   ├── App.jsx          # Storefront layout controller
+│   └── main.jsx         # Render entry point
+├── package.json         # Node metadata
 └── README.md            # System documentation
 ```
 
 ---
 
-## 🛠️ Technology Stack
-
-| Technology | Purpose |
-| :--- | :--- |
-| HTML5 | Semantic structure layout |
-| CSS3 | Layout styling and animations |
-| JavaScript | DOM interactivity logic |
-
----
-
-## 🚀 Local Developer Setup & Run
-
-### 📋 Prerequisites
-* Modern web browser / Node.js runtime (depending on project stack)
-
-### ⚙️ Quick Start Steps
+## ⚡ Local Setup & Run
 ```bash
-    git clone https://github.com/Sayed-Herzallah/damascus-restaurant.git
-    cd damascus-restaurant
-    # Open index.html in any modern browser, or run local server:
-    python -m http.server 8080
+git clone https://github.com/Sayed-Herzallah/damascus-restaurant.git
+cd damascus-restaurant
+npm install
+npm run dev
 ```
-
----
-
-## 🔮 Future Improvements
-* [ ] Integrate automated unit testing.
-* [ ] Add dynamic dark/light theme switcher.
-* [ ] Improve responsiveness on extra-small mobile screen viewports.
-
----
-
-## 👥 Contributors
-* **Sayed Herzallah** - Lead Developer & Systems Architect
 
 ---
 
